@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,7 +22,6 @@ import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.ContextMenu;
 import android.view.Display;
@@ -182,7 +180,7 @@ public class MainActivity extends ListActivity implements QueryInterface {
             d.getMetrics(displayMetrics);
             if ((realDisplayMetrics.widthPixels > displayMetrics.widthPixels && orientation == Configuration.ORIENTATION_LANDSCAPE) ||
                     (realDisplayMetrics.heightPixels > displayMetrics.heightPixels && orientation == Configuration.ORIENTATION_PORTRAIT)) {
-                View navigationShadow = this.findViewById(R.id.navigation_shadow);
+                View navigationShadow = findViewById(R.id.navigation_shadow);
                 navigationShadow.setVisibility(View.VISIBLE);
             }
         }
