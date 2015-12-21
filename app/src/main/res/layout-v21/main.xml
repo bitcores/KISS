@@ -7,7 +7,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:background="@drawable/system_shadow" />
@@ -15,7 +15,7 @@
     <View
         android:id="@+id/navigation_shadow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="80dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:background="@drawable/system_shadow"
@@ -97,7 +97,7 @@
                 android:background="?attr/searchBackgroundColor"
                 android:hint="@string/ui_search_hint"
                 android:imeOptions="flagNoExtractUi|actionSearch"
-                android:inputType="textVisiblePassword|textNoSuggestions"
+                android:inputType="textNoSuggestions"
                 android:singleLine="true"
                 android:textColor="?attr/searchColor"
                 android:textColorHint="?android:attr/textColorSecondary"
