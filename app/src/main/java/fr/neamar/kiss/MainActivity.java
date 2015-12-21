@@ -11,6 +11,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -20,14 +21,17 @@ import android.support.annotation.NonNull;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.ContextMenu;
+import android.view.Display;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -161,6 +165,25 @@ public class MainActivity extends ListActivity implements QueryInterface {
         }
 
         setContentView(R.layout.main);
+
+        // I hate things that aren't simple even though they should be simple
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+
+            // this entire part is about detecting if there is a navigation bar with
+            // bonus parts especially for the Note Edge due to the Cocktail bar
+            int orientation = getResources().getConfiguration().orientation;
+            Display d = ((WindowManager) getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
+            DisplayMetrics realDisplayMetrics = new DisplayMetrics();
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            d.getRealMetrics(realDisplayMetrics);
+            d.getMetrics(displayMetrics);
+            if ((realDisplayMetrics.widthPixels > displayMetrics.widthPixels && orientation == Configuration.ORIENTATION_LANDSCAPE) ||
+                    (realDisplayMetrics.heightPixels > displayMetrics.heightPixels && orientation == Configuration.ORIENTATION_PORTRAIT)) {
+                View navigationShadow = findViewById(R.id.navigation_shadow);
+                navigationShadow.setVisibility(View.VISIBLE);
+            }
+        }
 
         // Create adapter for records
         adapter = new RecordAdapter(this, this, R.layout.item_app, new ArrayList<Result>());
